@@ -21,12 +21,11 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-/**
- * Created by Martin on 17/04/2017.
- */
+
 
 public class DynamicListView extends ListView{
     private final int SMOOTH_SCROLL_AMOUNT_AT_EDGE = 15;
@@ -77,6 +76,7 @@ public class DynamicListView extends ListView{
     }
 
     public void init(Context context) {
+        setOnItemClickListener(mOnItemClickListener);
         setOnItemLongClickListener(mOnItemLongClickListener);
         setOnScrollListener(mScrollListener);
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
@@ -108,6 +108,13 @@ public class DynamicListView extends ListView{
                     return false;
                 }
             };
+
+    private AdapterView.OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            Toast.makeText(getContext(),"Touche and hold",Toast.LENGTH_SHORT).show();
+        }
+    };
 
     /**
      * Creates the hover cell with the appropriate bitmap and of appropriate

@@ -6,5 +6,5 @@ package newsapp.eudoxia;
 
 public class Themes {
 
-    public static final String[] sThemeStrings = {"Economy", "Society", "Politics", "Sport", "Science", "Ecology", "Technology", "Culture"};
+    public static final String[] sThemeStrings = {"Economy", "Society", "Politics", "Sports", "Science", "Ecology", "Technology", "Culture"};
 }

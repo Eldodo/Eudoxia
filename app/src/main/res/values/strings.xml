@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-	<string name="text_view_pref">Welcome on Eudoxia.\nPlease sort the topics \naccording to your interests\nand press OK!</string>
+    <string name="text_view_pref">Welcome on Eudoxia. Please sort the topics according to your interests and press OK!</string>
     <string name="Button_pref">OK</string>
     <string name="inline_preferences">10p</string>
     <string name="title_checkbox_preference">Title</string>

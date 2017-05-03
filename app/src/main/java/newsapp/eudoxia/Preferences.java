@@ -1,23 +1,17 @@
 package newsapp.eudoxia;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import com.woxthebox.draglistview.DragListView;
+
 import java.util.ArrayList;
 
 public class Preferences extends AppCompatActivity {
@@ -38,6 +32,7 @@ public class Preferences extends AppCompatActivity {
         listView.setThemeList(mThemeList);
         listView.setAdapter(adapter);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
 
         Button button= (Button) findViewById(R.id.button);
 

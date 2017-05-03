@@ -33,6 +33,7 @@ public class ListFragment extends Fragment implements AdapterView.OnItemClickLis
     NewsAdapter adapter;
     NewsResponse response;
     Url url;
+    //public static final NewsAPI api = new NewsAPI();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,55 +41,48 @@ public class ListFragment extends Fragment implements AdapterView.OnItemClickLis
         list = (ListView)v.findViewById(R.id.listView);
         Bundle args = getArguments();
         String param = args.getString("tab");
+
         url = new Url();
         SharedPreferences p = getContext().getSharedPreferences("Preferences",(MODE_PRIVATE));
-        List<String> list = new ArrayList<String>();
 
-        if(param.equals("Home")){
-            list.add(p.getString("1","Error"));
-            list.add(p.getString("2","Error"));
-            list.add(p.getString("3","Error"));
+        switch(param) {
+            case "Trends":
+                url.setToShared(true);
+                break;
+            case "Economy":
+                url.addCategory("Business");
+                break;
+            case "Politics":
+                url.addCategory("Society/Politics");
+                break;
+            case "Society":
+                url.addCategory("Society");
+                url.addIgcategory("Society/Politics");
+                break;
+            case "Sports":
+                url.addCategory("Sports");
+                break;
+            case "Science":
+                url.addCategory("Science");
+                url.addIgcategory("Science/Technology");
+                break;
+            case "Ecology":
+                url.addCategory("Science/Biology/Ecology");
+                break;
+            case "Technology":
+                url.addCategory("Science/Technology");
+                url.addCategory("Computer");
+                break;
+            case "Culture":
+                url.addCategory("Arts");
+                break;
+            default:
+                break;
         }
-        else{
-            list.add(param);
-        }
-        for(String elem : list){
-            switch(elem) { //TODO ajouter les bonnes catégories à l'url
-                case "Trends":
-                    url.setToShared(true);
-                    break;
-                case "Economy":
-                    url.addCategory("Business");
-                    break;
-                case "Politics":
-                    url.addCategory("Society/Politics");
-                    break;
-                case "Society":
-                    url.addCategory("Society");
-                    url.addIgcategory("Society/Politics");
-                    break;
-                case "Sports":
-                    url.addCategory("Sport");
-                    break;
-                case "Science":
-                    url.addCategory("Science");
-                    url.addIgcategory("Science/Technology");
-                    break;
-                case "Ecology":
-                    url.addCategory("Science/Biology/Ecology");
-                    break;
-                case "Technology":
-                    url.addCategory("Science/Technology");
-                    break;
-                case "Culture":
-                    url.addCategory("Arts");
-                    break;
-                default:
-                    break;
-        }
-        }
+
         RunAPI runapi = new RunAPI();
         runapi.execute();
+
         return v;
     }
 
@@ -113,20 +107,24 @@ public class ListFragment extends Fragment implements AdapterView.OnItemClickLis
         @Override
         protected NewsResponse doInBackground(String... strings) {
 
-            NewsAPI api = new NewsAPI(url);
             try {
-                response = api.run();
+                response = NewsAPI.run(url);
             } catch (IOException e) {
             }
             return response;
         }
 
+
         @Override
         protected void onPostExecute(NewsResponse newsResponse) {
             super.onPostExecute(newsResponse);
+
             adapter = new NewsAdapter();
             list.setAdapter(adapter);
             list.setOnItemClickListener(ListFragment.this);
+            if(getView()!=null) {
+                getView().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+            }
         }
     }
 
@@ -140,6 +138,9 @@ public class ListFragment extends Fragment implements AdapterView.OnItemClickLis
 
         @Override
         public int getCount() {
+            if(response == null){
+                return 0;
+            }
             return response.articles.count;
         }
 

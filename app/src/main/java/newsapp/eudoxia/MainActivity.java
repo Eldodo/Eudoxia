@@ -35,8 +35,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NewsAPI.context = getApplicationContext();
         setContentView(R.layout.activity_main);
-        NewsAPI.setContext(getApplicationContext());
+        //NewsAPI.setContext(getApplicationContext());
         if (!(getSharedPreferences("Preferences",(MODE_PRIVATE)).getString("0", "Test").equals("Valide"))){
             Intent PremierLancement = new Intent(this, Preferences.class);
             startActivity(PremierLancement);
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity
             str = p.getString(""+i, "Test");
 
         }
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

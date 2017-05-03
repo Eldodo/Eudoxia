@@ -14,12 +14,12 @@ public class Url {
     private String lang = "default";
     private List<String> category = null;
     private List<String> igcategory = null;
-    private int count = 200;
+    private int count = 20;
     private String date ;
     private Boolean byShared = false; //pour l'onglet des "trends"
 
     public Url(){
-        url = "http://eventregistry.org/json/article?apiKey=29308057-876e-4825-982c-826dc6bba203&isDuplicateFilter=skipDuplicates&action=getArticles&resultType=articles&articlesIncludeArticleImage=True";
+        url = "http://eventregistry.org/json/article?apiKey=b6af11b3-1185-4be0-a01c-ef3aa00256cd&isDuplicateFilter=skipDuplicates&action=getArticles&resultType=articles&articlesIncludeArticleImage=True";
         Calendar today = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         date = df.format(today.getTime());
@@ -55,7 +55,7 @@ public class Url {
         this.byShared = toShared;
     }
 
-    public String getUrl(){
+    public String getUrlPage(int page){
         if (lang.equals("default")){
             lang = "eng"; //REMPLACER AVEC VALEUR DANS LE XML PREFERENCE
         }
@@ -72,10 +72,10 @@ public class Url {
         }*/
 
         url += "&articlesSortBy=date";
-        //TODO PARTCOURIR LISTES CATEGORY
+
         if(category != null) {
             for (String cat : category) {
-                url += "&categoriUri=dmoz/" + cat;
+                url += "&categoryUri=dmoz/" + cat;
             }
         }
         if(igcategory != null) {
@@ -83,6 +83,8 @@ public class Url {
                 url += "&ignoreCategoryUri=dmoz/" + igcat;
             }
         }
+
+        url+="&articlesPage="+page;
         return url;
     }
 
