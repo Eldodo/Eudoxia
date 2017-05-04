@@ -14,7 +14,7 @@ public class Url {
     private String lang = "default";
     private List<String> category = null;
     private List<String> igcategory = null;
-    private int count = 20;
+    private int count = 200;
     private String date ;
     private Boolean byShared = false; //pour l'onglet des "trends"
 
