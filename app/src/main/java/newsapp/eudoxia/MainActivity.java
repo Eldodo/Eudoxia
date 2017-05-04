@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.PermissionChecker;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity
         //NewsAPI.setContext(getApplicationContext());
         if (!(getSharedPreferences("Preferences",(MODE_PRIVATE)).getString("0", "Test").equals("Valide"))){
             Intent PremierLancement = new Intent(this, Preferences.class);
+            PremierLancement.putExtra("settings","false");
             startActivity(PremierLancement);
             finish();
         }
@@ -72,7 +74,8 @@ public class MainActivity extends AppCompatActivity
         Menu menu = navigationView.getMenu();
         int j;
         for(j = 0; j<tab.size(); j++){
-            menu.add(Menu.FIRST,j,j,tab.get(j));
+            menu.add(Menu.FIRST,j,j,tab.get(j)).setIcon(R.drawable.ic_arrow_forward_black);
+
         }
         menu.add(Menu.NONE,j,j,"Settings").setIcon(R.drawable.ic_menu_manage);
 
@@ -141,6 +144,9 @@ public class MainActivity extends AppCompatActivity
 
         if(item.getTitle()=="Settings"){
             //Todopreference fragment
+            Intent settings = new Intent(this, Preferences.class);
+            settings.putExtra("settings","true");
+            startActivity(settings);
             return true;
         }
 

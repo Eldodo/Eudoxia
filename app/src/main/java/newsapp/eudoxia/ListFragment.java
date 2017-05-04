@@ -172,7 +172,7 @@ public class ListFragment extends Fragment implements AdapterView.OnItemClickLis
                 Picasso.with(getActivity().getApplicationContext()).load(imgurl).into(image);
             }
             else{
-                image.setImageResource(android.R.drawable.ic_menu_gallery);
+                image.setImageResource(R.mipmap.ic_sad);
             }
             return v;
         }

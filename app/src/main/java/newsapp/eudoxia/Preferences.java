@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.woxthebox.draglistview.DragListView;
@@ -20,12 +21,27 @@ public class Preferences extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
-
+        Intent intent = getIntent();
+        String settings = intent.getStringExtra("settings");
         final ArrayList<String> mThemeList = new ArrayList<String>();
-        for (int i = 0; i < Themes.sThemeStrings.length; ++i) {
-            mThemeList.add(Themes.sThemeStrings[i]);
+        if(settings.equals("true")){
+            int i = 1;
+            SharedPreferences p = getSharedPreferences("Preferences",(MODE_PRIVATE));
+            String str = p.getString(""+i,"Test");
+            while(!str.equals("Test")){
+                mThemeList.add(str);
+                i++;
+                str = p.getString(""+i, "Test");
+            }
+            TextView txt = (TextView) findViewById(R.id.text_view_pref);
+            txt.setText("Here you can reorder the topics. When finished, press OK.");
         }
+        else{
 
+            for (int i = 0; i < Themes.sThemeStrings.length; ++i) {
+                mThemeList.add(Themes.sThemeStrings[i]);
+        }
+        }
         StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.text_view, mThemeList);
         DynamicListView listView = (DynamicListView) findViewById(R.id.Themelist);
 
